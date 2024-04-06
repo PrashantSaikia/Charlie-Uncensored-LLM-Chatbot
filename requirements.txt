@@ -1,2 +1,2 @@
-gradio
-ollama
+gradio==4.25.0
+ollama==0.1.8
