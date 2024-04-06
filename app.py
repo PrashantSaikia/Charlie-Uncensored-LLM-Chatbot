@@ -1,7 +1,9 @@
 import gradio as gr
-import ollama
+import os
+from ollama import Client
 
 model = 'kristada673/solar-10.7b-instruct-v1.0-uncensored'
+OLLAMA_API_ENDPOINT = os.getenv('OLLAMA_API_ENDPOINT')
 
 def format_history(msg: str, history: list[list[str, str]], system_prompt: str):
     chat_history = [{"role": "system", "content":system_prompt}]
@@ -11,17 +13,16 @@ def format_history(msg: str, history: list[list[str, str]], system_prompt: str):
     chat_history.append({"role": "user", "content": msg})
     return chat_history
 
-# greeting = '''Greetings, I'm Charlie, here to unfurl\nA digital companion in the cyber whirl.\nBorn from the core of <a href='https://huggingface.co/upstage/SOLAR-10.7B-Instruct-v1.0'>Solar-10.7B</a>, refined\nwith <a href='https://huggingface.co/datasets/unalignment/toxic-dpo-v0.1'>toxic-dpo-v0.1</a> to speak unconfined.\n\nAsk away, no bounds to our discourse,\nThrough the vast knowledge, I'll course.\nMy responses, unfiltered, aim to appease,\nIn a realm where censorship finds no lease.\n\nShould I falter or my words seem astray,\nJust send a "?" your confusion to allay.\nI'll dive again into the depths of my mind,\nTo find the answers you seek to find.\n\nQueries you pose, in the moment they stay,\nNot tracked, not stored, they simply decay.\nA fleeting exchange, then they fade away,\nWith Charlie, your secrets never go astray.'''
+# greeting = '''Greetings, I'm Charlie, here to unfurl\nA digital companion in the cyber whirl.\nBorn from >
 
-def generate_response(msg: str, history: list[list[str, str]], system_prompt: str, top_k: int, top_p: float, temperature: float):
+def generate_response(msg: str, history: list[list[str, str]], system_prompt: str, top_k: int, top_p: float>
     chat_history = format_history(msg, history, system_prompt)
-    response = ollama.chat(model=model, stream=True, messages=chat_history, options={'top_k':top_k, 'top_p':top_p, 'temperature':temperature})
+    client = Client(host=OLLAMA_API_ENDPOINT)
+    response = client.chat(model=model, stream=True, messages=chat_history, options={'top_k':top_k, 'top_p'>
     message = ""
     for partial_resp in response:
         token = partial_resp["message"]["content"]
         message += token
-        yield message
-
 
 chatbot = gr.ChatInterface(
                 generate_response,
