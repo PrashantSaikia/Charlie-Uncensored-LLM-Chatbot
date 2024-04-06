@@ -12,7 +12,7 @@ docker network rm my-net
 
 ## 1. Execute the following commands
 ```
-git clone https://github.com/input-output-hk/Charlie-Uncensored-LLM-Chatbot.git
+git clone https://github.com/PrashantSaikia/Charlie-Uncensored-LLM-Chatbot.git
 cd Gradio-Ollama-Chatbot/
 docker network create my-net
 docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama --net my-net ollama/ollama
