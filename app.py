@@ -15,10 +15,10 @@ def format_history(msg: str, history: list[list[str, str]], system_prompt: str):
 
 # greeting = '''Greetings, I'm Charlie, here to unfurl\nA digital companion in the cyber whirl.\nBorn from >
 
-def generate_response(msg: str, history: list[list[str, str]], system_prompt: str, top_k: int, top_p: float>
+def generate_response(msg: str, history: list[list[str, str]], system_prompt: str, top_k: int, top_p: float, temperature: float):
     chat_history = format_history(msg, history, system_prompt)
     client = Client(host=OLLAMA_API_ENDPOINT)
-    response = client.chat(model=model, stream=True, messages=chat_history, options={'top_k':top_k, 'top_p'>
+    response = client.chat(model=model, stream=True, messages=chat_history, options={'top_k':top_k, 'top_p':top_p, 'temperature':temperature})
     message = ""
     for partial_resp in response:
         token = partial_resp["message"]["content"]
