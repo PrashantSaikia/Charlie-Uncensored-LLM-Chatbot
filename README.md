@@ -21,6 +21,6 @@ docker build -t app .
 export OLLAMA_API_ENDPOINT=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ollama)
 docker run -d -p 8080:8080 -e OLLAMA_API_ENDPOINT --rm --name gradio-app --net my-net app
 ```
-Need to create a docker network so the two containers (oen for the Ollama server and one for the app UI) and talk to each other. Then, need to set the URL for the ollama server as the IP address on which the Ollama container is running. Screenshot of the app running successfully:
+Need to create a docker network so the two containers (one for the Ollama server and one for the app UI) can talk to each other. Then, need to set the URL for the Ollama server in `app.py` as the IP address on which the Ollama container is running. Screenshot of the app running successfully:
 
 <img width="909" alt="Screenshot 2024-04-05 at 4 30 20 PM" src="https://github.com/input-output-hk/Charlie-Uncensored-LLM-Chatbot/assets/39755678/95327684-eee9-41d1-931a-591e51be0601">
